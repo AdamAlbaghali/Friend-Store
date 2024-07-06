@@ -22,13 +22,13 @@ with app.app_context():
 if __name__ == "__main__":
   app.run(debug=True, port=5001)
 
-##first we run these two
+##first we run these two:
 ##export FLASK_APP=app.py
 ##export FLASK_ENV=development
 
-## to check we have to 
+## to check we have to run:
 ## echo $FLASK_APP  # Should output: app.py
 ## echo $FLASK_ENV  # Should output: development
 
 
-## when running since we are using port 5001 we run flask run --port=5001
+## when running since we are using port 5001 we run: flask run --port=5001

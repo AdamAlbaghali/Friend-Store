@@ -2,6 +2,7 @@ from app import app, db
 from flask import request, jsonify
 from models import Friend
 
+# CRUD 
 # Get all friends
 @app.route("/api/friends", methods=["GET"])
 def get_friends():
@@ -17,7 +18,7 @@ def create_friend():
     try:
         data = request.json
 
-        #check for required fields
+        #Validation
         required_fields = ["name","role","description","gender"]
         for field in required_fields:
             if field not in data:

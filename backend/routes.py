@@ -17,6 +17,12 @@ def create_friend():
     try:
         data = request.json
 
+        #check for required fields
+        required_fields = ["name","role","description","gender"]
+        for field in required_fields:
+            if field not in data:
+                return jsonify({"error":f'Missing required field: {field}'}), 400
+
         name = data.get("name")
         role = data.get("role")
         description = data.get("description")
@@ -39,6 +45,22 @@ def create_friend():
         db.session.commit()
 
         return jsonify({"msg":"Friend created successfully"}),201
+
+    except Exception as e:
+        db.session.rollback()
+        return jsonify({"error":str(e)}), 500
+
+#delete a friend
+@app.route("/api/friends/<int:id>", methods=["DELETE"])
+def delete_friend(id):
+    try:
+        friend = Friend.query.get(id)
+        if friend is None:
+            return jsonify({"error":"Friend not found"}), 404
+        
+        db.session.delete(friend)
+        db.session.commit()
+        return jsonify({"msg":"Friend deleted"}),200
 
     except Exception as e:
         db.session.rollback()
